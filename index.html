@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>رسالة خاصة 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #5a2a2a;
+      text-align: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      font-size: 14px;
+      resize: none;
+    }
+
+    .counter {
+      margin: 15px 0;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    button {
+      background: #ff6f91;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #ff4f7a;
+    }
+
+    .surprise {
+      display: none;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    audio {
+      margin-top: 15px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>💗 رسالة ليكي 💗</h1>
+
+    <p>اكتبي هنا أول رسالة:</p>
+    <textarea placeholder="هنا هتكتب الرسالة اللي تبدأ بيها..."></textarea>
+
+    <div class="counter">
+      ⏳ عدى <span id="days"></span> يوم من أول يوم شفتك فيه
+    </div>
+
+    <button onclick="showSurprise()">اضغطي هنا 🎁</button>
+
+    <div class="surprise" id="surprise">
+      💖 مفاجأة بسيطة بس من قلبي 💖
+      <audio controls>
+        <!-- هنا هتحط الأغنية -->
+        <source src="song.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    // ✨ غير التاريخ ده بتاريخ أول يوم بينكم
+    const startDate = new Date("2024-01-01");
+    const today = new Date();
+    const diffTime = Math.abs(today - startDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    document.getElementById("days").innerText = diffDays;
+
+    function showSurprise() {
+      document.getElementById("surprise").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
