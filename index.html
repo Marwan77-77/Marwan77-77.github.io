@@ -1,114 +1,149 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>رسالة خاصة 💖</title>
+<meta charset="UTF-8">
+<title>رسالة خاصة 💖</title>
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Arial", sans-serif;
-      background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: #5a2a2a;
-      text-align: center;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 
-    .card {
-      background: rgba(255, 255, 255, 0.85);
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 400px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
+/* شاشة كلمة السر */
+#lock {
+  background: rgba(255,255,255,0.9);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+}
 
-    h1 {
-      margin-bottom: 15px;
-    }
+#lock input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
 
-    textarea {
-      width: 100%;
-      height: 100px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      padding: 10px;
-      font-size: 14px;
-      resize: none;
-    }
+/* الكارت */
+.card {
+  display: none;
+  position: relative;
+  background: rgba(255,255,255,0.85);
+  padding: 30px;
+  border-radius: 20px;
+  width: 380px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
 
-    .counter {
-      margin: 15px 0;
-      font-size: 16px;
-      font-weight: bold;
-    }
+/* القلوب */
+.heart {
+  position: absolute;
+  color: #ff6f91;
+  animation: float 6s infinite ease-in-out;
+  opacity: 0.7;
+}
 
-    button {
-      background: #ff6f91;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-    }
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
 
-    button:hover {
-      background: #ff4f7a;
-    }
+/* زر المفاجأة */
+button {
+  background: #ff6f91;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 15px;
+}
 
-    .surprise {
-      display: none;
-      margin-top: 20px;
-      font-size: 18px;
-    }
-
-    audio {
-      margin-top: 15px;
-      width: 100%;
-    }
-  </style>
+/* الهينت المخفي */
+#hintBtn {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  opacity: 0;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="card">
-    <h1>💗 رسالة ليكي 💗</h1>
+<!-- كلمة السر -->
+<div id="lock">
+  <h3>💌 كلمة السر</h3>
+  <input type="password" id="password" placeholder="اكتبيها هنا">
+  <br><br>
+  <button onclick="unlock()">دخول</button>
+</div>
 
-    <p>اكتبي هنا أول رسالة:</p>
-    <textarea placeholder="هنا هتكتب الرسالة اللي تبدأ بيها..."></textarea>
+<!-- الهينت المخفي -->
+<div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')"></div>
 
-    <div class="counter">
-       عدى <span id="days"></span> يوم من اخر يوم اتكلمنا فيه
-    </div>
+<!-- الكارت -->
+<div class="card" id="card">
+  <h2>💗 رسالة ليكي 💗</h2>
 
-    <button onclick="showSurprise()">اضغطي هنا 🎁</button>
+  <p>اكتبي هنا الرسالة:</p>
+  <textarea style="width:100%;height:90px;border-radius:10px;">
+هنا هتكتب كلامك
+  </textarea>
 
-    <div class="surprise" id="surprise">
-      💖 مفاجأة بسيطة بس من قلبي 💖
-      <audio controls>
-        <!-- هنا هتحط الأغنية -->
-        <source src="song.mp3" type="audio/mpeg">
-      </audio>
-    </div>
+  <p>⏳ عدى <span id="days"></span> يوم من أول يوم شفتك فيه</p>
+
+  <button onclick="showSurprise()">اضغطي هنا 🎁</button>
+
+  <div id="surprise" style="display:none;margin-top:15px;">
+    💖 مفاجأة من قلبي 💖
+    <audio controls style="width:100%;margin-top:10px;">
+      <source src="song.mp3" type="audio/mpeg">
+    </audio>
   </div>
 
-  <script>
-    // ✨ غير التاريخ ده بتاريخ أول يوم بينكم
-    const startDate = new Date("2025-11-06");
-    const today = new Date();
-    const diffTime = Math.abs(today - startDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    document.getElementById("days").innerText = diffDays;
+  <!-- القلوب -->
+  <div class="heart" style="top:-10px;left:20px;">❤️</div>
+  <div class="heart" style="top:-15px;right:30px;">❤️</div>
+  <div class="heart" style="bottom:-10px;left:40px;">❤️</div>
+  <div class="heart" style="bottom:-15px;right:20px;">❤️</div>
+</div>
 
-    function showSurprise() {
-      document.getElementById("surprise").style.display = "block";
-    }
-  </script>
+<script>
+// ✨ غير كلمة السر هنا
+const correctPassword = "1234";
+
+function unlock() {
+  const pass = document.getElementById("password").value;
+  if (pass === correctPassword) {
+    document.getElementById("lock").style.display = "none";
+    document.getElementById("card").style.display = "block";
+  } else {
+    alert("❌ كلمة السر غلط");
+  }
+}
+
+// ✨ غير التاريخ
+const startDate = new Date("2024-01-01");
+const today = new Date();
+const diffDays = Math.ceil((today - startDate) / (1000*60*60*24));
+document.getElementById("days").innerText = diffDays;
+
+function showSurprise(){
+  document.getElementById("surprise").style.display="block";
+}
+</script>
 
 </body>
 </html>
