@@ -71,16 +71,28 @@ button {
 /* الهينت المخفي */
 #hintBtn {
   position: fixed;
-  bottom: 10px;
-  right: 10px;
-  width: 25px;
-  height: 25px;
-  opacity: 0;
+  bottom: 12px;
+  right: 14px;
+  font-size: 12px;
+  color: rgba(90, 42, 42, 0.55);
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.6;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+#hintBtn:hover {
+  opacity: 1;
+  transform: translateY(-2px);
 }
 </style>
 </head>
 
 <body>
+  <div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')">
+  💡 hint ya habla
+</div>
+
 
 <!-- كلمة السر -->
 <div id="lock">
