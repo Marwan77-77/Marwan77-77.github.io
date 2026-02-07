@@ -1,160 +1,165 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8">
-<title>رسالة خاصة 💖</title>
+  <meta charset="UTF-8">
+  <title>Special Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #111, #1f1f1f);
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
+    .login-box, .content-box {
+      background: rgba(255,255,255,0.08);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      width: 400px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    }
 
-/* شاشة كلمة السر */
-#lock {
-  background: rgba(255,255,255,0.9);
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-}
+    input {
+      padding: 10px;
+      width: 80%;
+      border-radius: 8px;
+      border: none;
+      margin-top: 15px;
+      font-size: 16px;
+    }
 
-#lock input {
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  margin-top: 10px;
-}
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
 
-/* الكارت */
-.card {
-  display: none;
-  position: relative;
-  background: rgba(255,255,255,0.85);
-  padding: 30px;
-  border-radius: 20px;
-  width: 380px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
+    .hint-btn {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 18px;
+    }
 
-/* القلوب */
-.heart {
-  position: absolute;
-  color: #ff6f91;
-  animation: float 6s infinite ease-in-out;
-  opacity: 0.7;
-}
+    .hidden {
+      display: none;
+    }
 
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0); }
-}
+    .gift-btn {
+      background: #ff4081;
+      color: white;
+    }
 
-button {
-  background: #ff6f91;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 20px;
-  cursor: pointer;
-  margin-top: 15px;
-}
+    .gift-box {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
 
-/* الهينت */
-#hintBtn {
-  position: fixed;
-  bottom: 12px;
-  right: 14px;
-  font-size: 12px;
-  color: rgba(255,0,0,0.8);
-  cursor: pointer;
-}
-</style>
+    .gift-content {
+      display: flex;
+      width: 80%;
+      height: 70%;
+    }
+
+    .gift-image {
+      width: 50%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .gift-message {
+      width: 50%;
+      padding: 40px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- 🎵 الموسيقى -->
-<audio id="bgMusic" preload="auto">
-  <source src="song.mp3" type="audio/mpeg">
-</audio>
-
-<!-- الهينت -->
-<div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')">
-  💡 hint ya habla
+<div class="login-box" id="loginBox">
+  <h2>اكتب كلمة السر</h2>
+  <input type="password" id="password" placeholder="Password">
+  <br>
+  <button onclick="checkPassword()">دخول</button>
 </div>
 
-<!-- كلمة السر -->
-<div id="lock">
-  <h3>💌 كلمة السر</h3>
-  <input type="password" id="password" placeholder="اكتبيها هنا">
-  <br><br>
-  <button onclick="unlock()">دخول</button>
+<button class="hint-btn" onclick="alert('الهينت: اكتب الهينت هنا')">?</button>
+
+<div class="content-box hidden" id="mainContent">
+  <h2 id="counter"></h2>
+  <button class="gift-btn" onclick="openGift()">🎁 هدية</button>
 </div>
 
-<!-- الكارت -->
-<div class="card" id="card">
-  <h2>💗 رسالة ليكي 💗</h2>
-
-  <p>اكتبي هنا الرسالة:</p>
-  <textarea style="width:100%;height:90px;border-radius:10px;">
-هنا هتكتب كلامك
-  </textarea>
-
-  <p>⏳ عدى <span id="days"></span> يوم من أول يوم شفتك فيه</p>
-
-  <button onclick="showSurprise()">اضغطي هنا 🎁</button>
-  <button onclick="playMusic()">🎶 شغلي الأغنية</button>
-
-  <div id="surprise" style="display:none;margin-top:15px;">
-    💖 مفاجأة من قلبي 💖
+<div class="gift-box" id="giftBox" onclick="closeGift()">
+  <div class="gift-content">
+    <div class="gift-message" id="giftMessage">
+      اكتب رسالتك هنا
+    </div>
+    <div class="gift-image" id="giftImage"></div>
   </div>
-
-  <div class="heart" style="top:-10px;left:20px;">❤️</div>
-  <div class="heart" style="top:-15px;right:30px;">❤️</div>
-  <div class="heart" style="bottom:-10px;left:40px;">❤️</div>
-  <div class="heart" style="bottom:-15px;right:20px;">❤️</div>
 </div>
+
+<audio id="song" src="song.mp3"></audio>
 
 <script>
-const correctPassword = "ice coffee";
+  const correctPassword = "1234"; // غير كلمة السر هنا
 
-function unlock() {
-  const pass = document.getElementById("password").value;
-  if (pass === correctPassword) {
-    document.getElementById("lock").style.display = "none";
-    document.getElementById("card").style.display = "block";
-
-    // محاولة تشغيل تلقائي
-    playMusic();
-  } else {
-    alert("كلمة السر غلط ❌");
+  function checkPassword() {
+    const input = document.getElementById("password").value;
+    if (input === correctPassword) {
+      document.getElementById("loginBox").classList.add("hidden");
+      document.getElementById("mainContent").classList.remove("hidden");
+      document.getElementById("song").play();
+      startCounter();
+    } else {
+      alert("كلمة السر غلط");
+    }
   }
-}
 
-function playMusic() {
-  const music = document.getElementById("bgMusic");
-  music.play().catch(() => {
-    console.log("اضغطي زر تشغيل الأغنية 🎶");
-  });
-}
+  // عداد الأيام
+  const startDate = new Date("2024-01-01"); // غير التاريخ هنا
 
-// العداد
-const startDate = new Date("2024-01-01");
-const today = new Date();
-const diffDays = Math.ceil((today - startDate) / (1000*60*60*24));
-document.getElementById("days").innerText = diffDays;
+  function startCounter() {
+    const today = new Date();
+    const diff = today - startDate;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("counter").innerText = days + " يوم مع بعض";
+  }
 
-function showSurprise() {
-  document.getElementById("surprise").style.display = "block";
-}
+  function openGift() {
+    document.getElementById("giftBox").style.display = "flex";
+  }
+
+  function closeGift() {
+    document.getElementById("giftBox").style.display = "none";
+  }
+
+  // حط صورة الهدية هنا
+  document.getElementById("giftImage").style.backgroundImage = "url('your-image.jpg')";
 </script>
 
 </body>
