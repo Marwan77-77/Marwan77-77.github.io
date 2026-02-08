@@ -1,166 +1,172 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>Special Page</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #111, #1f1f1f);
-      color: white;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .login-box, .content-box {
-      background: rgba(255,255,255,0.08);
-      padding: 30px;
-      border-radius: 15px;
-      text-align: center;
-      width: 400px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.5);
-    }
-
-    input {
-      padding: 10px;
-      width: 80%;
-      border-radius: 8px;
-      border: none;
-      margin-top: 15px;
-      font-size: 16px;
-    }
-
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .hint-btn {
-      position: fixed;
-      bottom: 15px;
-      right: 15px;
-      background: red;
-      color: white;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 18px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .gift-btn {
-      background: #ff4081;
-      color: white;
-    }
-
-    .gift-box {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .gift-content {
-      display: flex;
-      width: 80%;
-      height: 70%;
-    }
-
-    .gift-image {
-      width: 50%;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .gift-message {
-      width: 50%;
-      padding: 40px;
-      font-size: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع رومانسي</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ff69b4, #ffb6c1);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #login {
+            display: block;
+        }
+        #main {
+            display: none;
+        }
+        #gift-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        #gift-content {
+            display: flex;
+            width: 80%;
+            height: 80%;
+        }
+        #gift-message {
+            flex: 1;
+            padding: 20px;
+            font-size: 2em;
+            text-align: center;
+            background: #fff;
+            color: #333;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        #gift-image {
+            flex: 1;
+            background: #fff;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+        #gift-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #hint-btn {
+            background: red;
+            color: white;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+        #countdown {
+            font-size: 2em;
+            margin: 20px;
+        }
+        #gift-btn {
+            background: pink;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-
-<div class="login-box" id="loginBox">
-  <h2>اكتب كلمة السر</h2>
-  <input type="password" id="password" placeholder="Password">
-  <br>
-  <button onclick="checkPassword()">دخول</button>
-</div>
-
-<button class="hint-btn" onclick="alert('الهينت: اكتب الهينت هنا')">?</button>
-
-<div class="content-box hidden" id="mainContent">
-  <h2 id="counter"></h2>
-  <button class="gift-btn" onclick="openGift()">🎁 هدية</button>
-</div>
-
-<div class="gift-box" id="giftBox" onclick="closeGift()">
-  <div class="gift-content">
-    <div class="gift-message" id="giftMessage">
-      اكتب رسالتك هنا
+    <div id="login">
+        <h1>أدخل كلمة المرور الرومانسية</h1>
+        <input type="password" id="password" placeholder="كلمة المرور">
+        <br>
+        <button onclick="checkPassword()">دخول</button>
+        <button id="hint-btn" onclick="showHint()">💡 هينت</button>
     </div>
-    <div class="gift-image" id="giftImage"></div>
-  </div>
-</div>
 
-<audio id="song" src="song.mp3"></audio>
+    <div id="main">
+        <h1>مرحبًا في موقعنا الرومانسي! 💕</h1>
+        <div id="countdown"></div>
+        <button id="gift-btn" onclick="showGift()">🎁 هدية</button>
+        <audio id="song" loop autoplay>
+            <source src="https://example.com/your-song.mp3" type="audio/mpeg"> <!-- غير هذا الرابط إلى رابط أغنيتك -->
+        </audio>
+    </div>
 
-<script>
-  const correctPassword = "1234"; // غير كلمة السر هنا
+    <div id="gift-overlay" onclick="hideGift()">
+        <div id="gift-content">
+            <div id="gift-message">رسالة رومانسية كبيرة هنا! 💖</div> <!-- غير هذا النص -->
+            <div id="gift-image">
+                <img src="https://example.com/your-image.jpg" alt="صورة هدية"> <!-- غير هذا الرابط إلى رابط صورتك -->
+            </div>
+        </div>
+    </div>
 
-  function checkPassword() {
-    const input = document.getElementById("password").value;
-    if (input === correctPassword) {
-      document.getElementById("loginBox").classList.add("hidden");
-      document.getElementById("mainContent").classList.remove("hidden");
-      document.getElementById("song").play();
-      startCounter();
-    } else {
-      alert("كلمة السر غلط");
-    }
-  }
+    <script>
+        const correctPassword = "password123"; // غير كلمة المرور هنا
+        const hintText = "الهينت: شيء رومانسي مثل اسمك!"; // غير الهينت هنا
+        const daysToCount = 30; // غير عدد الأيام هنا
+        const giftMessage = "رسالة رومانسية كبيرة هنا! 💖"; // غير الرسالة هنا
+        const giftImageSrc = "https://example.com/your-image.jpg"; // غير رابط الصورة هنا
 
-  // عداد الأيام
-  const startDate = new Date("2024-01-01"); // غير التاريخ هنا
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            if (password === correctPassword) {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('main').style.display = 'block';
+                startCountdown();
+                document.getElementById('song').play(); // تشغيل الأغنية تلقائيًا
+            } else {
+                alert('كلمة مرور خاطئة!');
+            }
+        }
 
-  function startCounter() {
-    const today = new Date();
-    const diff = today - startDate;
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById("counter").innerText = days + " يوم مع بعض";
-  }
+        function showHint() {
+            alert(hintText);
+        }
 
-  function openGift() {
-    document.getElementById("giftBox").style.display = "flex";
-  }
+        function startCountdown() {
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + daysToCount);
+            const countdownElement = document.getElementById('countdown');
 
-  function closeGift() {
-    document.getElementById("giftBox").style.display = "none";
-  }
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
 
-  // حط صورة الهدية هنا
-  document.getElementById("giftImage").style.backgroundImage = "url('your-image.jpg')";
-</script>
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+                countdownElement.innerHTML = `الوقت المتبقي: ${days} يوم ${hours} ساعة ${minutes} دقيقة ${seconds} ثانية`;
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    countdownElement.innerHTML = "انتهى الوقت! 🎉";
+                }
+            }, 1000);
+        }
+
+        function showGift() {
+            document.getElementById('gift-message').innerText = giftMessage;
+            document.getElementById('gift-image').querySelector('img').src = giftImageSrc;
+            document.getElementById('gift-overlay').style.display = 'flex';
+        }
+
+        function hideGift() {
+            document.getElementById('gift-overlay').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
