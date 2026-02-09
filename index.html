@@ -57,43 +57,57 @@ body {
   100% { transform: translateY(0); }
 }
 
-/* زر المفاجأة */
-button {
-  background: #ff6f91;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 20px;
-  cursor: pointer;
-  margin-top: 15px;
-}
-
-/* الهينت المخفي */
+/* الهينت */
 #hintBtn {
   position: fixed;
   bottom: 12px;
   right: 14px;
   font-size: 12px;
-  color: rgba(255, 255, 255, 1);
+  color: white;
+  background: rgba(255,0,0,0.8);
+  padding: 4px 8px;
+  border-radius: 8px;
   cursor: pointer;
-  user-select: none;
-  opacity: 1;
-  transition: opacity 0.3s, transform 0.3s;
-  background-color: red;
 }
 
-#hintBtn:hover {
-  opacity: 1;
-  transform: translateY(-2px);
+/* المفاجأة */
+.surprise {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  padding: 40px;
+}
+
+.surprise-text {
+  width: 50%;
+  font-size: 28px;
+  color: #ff4d6d;
+  line-height: 1.6;
+}
+
+.surprise-image {
+  width: 50%;
+}
+
+.surprise-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 </style>
 </head>
 
 <body>
-  <div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')">
+
+<!-- الهينت -->
+<div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')">
   💡 hint ya habla
 </div>
-
 
 <!-- كلمة السر -->
 <div id="lock">
@@ -103,28 +117,15 @@ button {
   <button onclick="unlock()">دخول</button>
 </div>
 
-<!-- الهينت المخفي -->
-<div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')"></div>
-
 <!-- الكارت -->
 <div class="card" id="card">
   <h2>💗 رسالة ليكي 💗</h2>
 
-  <p>اكتبي هنا الرسالة:</p>
-  <textarea style="width:100%;height:90px;border-radius:10px;">
-هنا هتكتب كلامك
-  </textarea>
-
-  <p>⏳ عدى <span id="days"></span> يوم من أول يوم شفتك فيه</p>
-
-  <button onclick="showSurprise()">اضغطي هنا 🎁</button>
-
-  <div id="surprise" style="display:none;margin-top:15px;">
-    💖 مفاجأة من قلبي 💖
-    <audio controls style="width:100%;margin-top:10px;">
-      <source src="song.mp3" type="audio/mpeg">
-    </audio>
-  </div>
+  <p onclick="showSurprise()" style="cursor:pointer;">
+    ⏳ عدى <span id="days"></span> يوم من أول يوم شفتك فيه  
+    <br>
+    <small>(اضغطي هنا 👀)</small>
+  </p>
 
   <!-- القلوب -->
   <div class="heart" style="top:-10px;left:20px;">❤️</div>
@@ -133,8 +134,24 @@ button {
   <div class="heart" style="bottom:-15px;right:20px;">❤️</div>
 </div>
 
+<!-- المفاجأة -->
+<div id="surprise" class="surprise">
+  <div class="surprise-text">
+    💌  
+    هنا تكتب الرسالة الكبيرة  
+    اللي من قلبك  
+    ❤️🥺
+  </div>
+
+  <div class="surprise-image">
+    <img src="image.jpg" alt="صورة المفاجأة">
+  </div>
+
+  <audio id="music" src="song.mp3"></audio>
+</div>
+
 <script>
-// ✨ غير كلمة السر هنا
+// كلمة السر
 const correctPassword = "ice coffee";
 
 function unlock() {
@@ -143,18 +160,20 @@ function unlock() {
     document.getElementById("lock").style.display = "none";
     document.getElementById("card").style.display = "block";
   } else {
-    alert(" كلمة السر غلط يعبيطة ❌");
+    alert("كلمة السر غلط ❌");
   }
 }
 
-// ✨ غير التاريخ
+// العداد
 const startDate = new Date("2024-01-01");
 const today = new Date();
 const diffDays = Math.ceil((today - startDate) / (1000*60*60*24));
 document.getElementById("days").innerText = diffDays;
 
+// إظهار المفاجأة + تشغيل الأغنية
 function showSurprise(){
-  document.getElementById("surprise").style.display="block";
+  document.getElementById("surprise").style.display = "flex";
+  document.getElementById("music").play();
 }
 </script>
 
