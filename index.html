@@ -43,6 +43,18 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
+/* زر */
+button {
+  background: #ff6f91;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 15px;
+}
+
 /* القلوب */
 .heart {
   position: absolute;
@@ -70,8 +82,8 @@ body {
   cursor: pointer;
 }
 
-/* المفاجأة */
-.surprise {
+/* صفحة المفاجأة */
+#surprise {
   display: none;
   position: fixed;
   inset: 0;
@@ -79,7 +91,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 25px;
+  gap: 30px;
   padding: 40px;
 }
 
@@ -121,11 +133,11 @@ body {
 <div class="card" id="card">
   <h2>💗 رسالة ليكي 💗</h2>
 
-  <p onclick="showSurprise()" style="cursor:pointer;">
-    ⏳ عدى <span id="days"></span> يوم من أول يوم شفتك فيه  
-    <br>
-    <small>(اضغطي هنا 👀)</small>
-  </p>
+  <!-- العداد (زي ما هو) -->
+  <p>⏳ عدى <span id="days"></span> يوم من أول يوم شفتك فيه</p>
+
+  <!-- زر المفاجأة -->
+  <button onclick="showSurprise()">اضغطي هنا 🎁</button>
 
   <!-- القلوب -->
   <div class="heart" style="top:-10px;left:20px;">❤️</div>
@@ -134,8 +146,8 @@ body {
   <div class="heart" style="bottom:-15px;right:20px;">❤️</div>
 </div>
 
-<!-- المفاجأة -->
-<div id="surprise" class="surprise">
+<!-- صفحة المفاجأة -->
+<div id="surprise">
   <div class="surprise-text">
     💌  
     هنا تكتب الرسالة الكبيرة  
@@ -170,7 +182,7 @@ const today = new Date();
 const diffDays = Math.ceil((today - startDate) / (1000*60*60*24));
 document.getElementById("days").innerText = diffDays;
 
-// إظهار المفاجأة + تشغيل الأغنية
+// فتح صفحة المفاجأة
 function showSurprise(){
   document.getElementById("surprise").style.display = "flex";
   document.getElementById("music").play();
