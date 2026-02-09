@@ -62,36 +62,30 @@ button {
   padding: 40px;
 }
 
-/* الكارت الكبير */
-.surprise-card {
-  background: rgba(255,255,255,0.92);
-  border-radius: 30px;
-  padding: 40px;
-  height: 100%;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-}
-
 /* المحتوى */
 .surprise-content {
   display: flex;
   height: 100%;
   gap: 40px;
+  align-items: center;
 }
 
 /* الرسالة */
 .message-box {
   flex: 1;
+  padding: 20px;
 }
 
 .message-box h2 {
-  color: #ff4d6d;
+  color: #000;
   margin-bottom: 20px;
+  font-size: 26px;
 }
 
 .message-text {
-  font-size: clamp(18px, 2.5vw, 30px);
-  color: #ff6f91;
-  line-height: 1.8;
+  font-size: clamp(18px, 2.6vw, 32px);
+  color: #000;
+  line-height: 1.9;
   white-space: normal;
   word-wrap: break-word;
 }
@@ -99,17 +93,18 @@ button {
 /* سلايدر الصور */
 .slider {
   flex: 1;
+  height: 80%;
   position: relative;
-  border-radius: 25px;
+  border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(255,111,145,0.4);
+  box-shadow: 0 12px 35px rgba(255,111,145,0.5);
 }
 
 .slide {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transform: scale(1.05);
+  transform: scale(1.08);
   transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
@@ -127,15 +122,14 @@ button {
 /* قلوب خفيفة */
 .heart {
   position: absolute;
-  color: #ff6f91;
-  font-size: 20px;
-  opacity: 0.4;
+  color: rgba(255,111,145,0.4);
+  font-size: 22px;
 }
 
-.heart.one { top: 20px; left: 30px; }
-.heart.two { top: 40px; right: 40px; }
-.heart.three { bottom: 30px; left: 60px; }
-.heart.four { bottom: 40px; right: 50px; }
+.heart.one { top: 25px; left: 40px; }
+.heart.two { top: 60px; right: 60px; }
+.heart.three { bottom: 40px; left: 80px; }
+.heart.four { bottom: 60px; right: 70px; }
 </style>
 </head>
 
@@ -158,39 +152,39 @@ button {
 
 <!-- صفحة المفاجأة -->
 <div id="surprisePage">
+
   <div class="heart one">❤️</div>
   <div class="heart two">❤️</div>
   <div class="heart three">❤️</div>
   <div class="heart four">❤️</div>
 
-  <div class="surprise-card">
-    <div class="surprise-content">
+  <div class="surprise-content">
 
-      <!-- الرسالة -->
-      <div class="message-box">
-        <h2>📩 رسالة من قلبي</h2>
-        <p class="message-text">
-          هنا تكتب الرسالة الكبيرة اللي من قلبك ❤️  
-          مهما طولت أو قصرت  
-          هتفضل شكلها هادي ومرتب  
-          زي إحساسك بالظبط 💕
-        </p>
-      </div>
-
-      <!-- سلايدر الصور -->
-      <div class="slider">
-        <div class="slide active">
-          <img src="photo1.jpg">
-        </div>
-        <div class="slide">
-          <img src="photo2.jpg">
-        </div>
-        <div class="slide">
-          <img src="photo3.jpg">
-        </div>
-      </div>
-
+    <!-- الرسالة -->
+    <div class="message-box">
+      <h2>📩 رسالة من قلبي</h2>
+      <p class="message-text">
+        هنا تكتب الرسالة الكبيرة اللي من قلبك ❤️  
+        الكلام هيترتب تحت بعضه  
+        والخط هيكبر أو يصغر تلقائي  
+        ويطلع نضيف وهادي  
+        على البينك زي ما انت حابب 💕
+      </p>
     </div>
+
+    <!-- الصور -->
+    <div class="slider">
+      <div class="slide active">
+        <img src="photo1.jpg">
+      </div>
+      <div class="slide">
+        <img src="photo2.jpg">
+      </div>
+      <div class="slide">
+        <img src="photo3.jpg">
+      </div>
+    </div>
+
   </div>
 </div>
 
