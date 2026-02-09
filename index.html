@@ -31,14 +31,13 @@ body {
   margin-top: 10px;
 }
 
-/* الكارت */
+/* الكارت الأساسي */
 .card {
   display: none;
-  position: relative;
   background: rgba(255,255,255,0.85);
   padding: 30px;
   border-radius: 20px;
-  width: 380px;
+  width: 400px;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
@@ -48,79 +47,67 @@ button {
   background: #ff6f91;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 18px;
   border-radius: 20px;
   cursor: pointer;
   margin-top: 15px;
-  font-size: 15px;
-}
-
-/* القلوب */
-.heart {
-  position: absolute;
-  color: #ff6f91;
-  animation: float 6s infinite ease-in-out;
-  opacity: 0.7;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0); }
-}
-
-/* الهينت */
-#hintBtn {
-  position: fixed;
-  bottom: 12px;
-  right: 14px;
-  font-size: 12px;
-  color: white;
-  background: rgba(255,0,0,0.8);
-  padding: 4px 8px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
 /* صفحة المفاجأة */
-#surprise {
+#surprisePage {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(255,255,255,0.97);
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
+  background: #fff;
   padding: 40px;
 }
 
-.surprise-text {
-  width: 50%;
-  font-size: 28px;
+.surprise-content {
+  display: flex;
+  height: 100%;
+  gap: 30px;
+}
+
+/* الرسالة */
+.message-box {
+  flex: 1;
+  text-align: left;
+  max-width: 500px;
+}
+
+.message-box h2 {
+  margin-bottom: 15px;
+}
+
+.message-text {
+  font-size: clamp(16px, 2.5vw, 28px);
   color: #ff4d6d;
-  line-height: 1.6;
+  line-height: 1.7;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
-.surprise-image {
-  width: 50%;
+/* الصورة */
+.image-box {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.surprise-image img {
-  width: 100%;
+.image-box img {
+  max-width: 100%;
+  max-height: 100%;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 </style>
 </head>
 
 <body>
 
-<!-- الهينت -->
-<div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')">
-  💡 hint ya habla
-</div>
-
-<!-- كلمة السر -->
+<!-- شاشة كلمة السر -->
 <div id="lock">
   <h3>💌 كلمة السر</h3>
   <input type="password" id="password" placeholder="اكتبيها هنا">
@@ -132,37 +119,36 @@ button {
 <div class="card" id="card">
   <h2>💗 رسالة ليكي 💗</h2>
 
-  <!-- العداد (زي ما هو) -->
   <p>⏳ عدى <span id="days"></span> يوم من أول يوم شفتك فيه</p>
 
-  <!-- زر المفاجأة -->
-  <button onclick="showSurprise()">اضغطي هنا 🎁</button>
-
-  <!-- القلوب -->
-  <div class="heart" style="top:-10px;left:20px;">❤️</div>
-  <div class="heart" style="top:-15px;right:30px;">❤️</div>
-  <div class="heart" style="bottom:-10px;left:40px;">❤️</div>
-  <div class="heart" style="bottom:-15px;right:20px;">❤️</div>
+  <button onclick="openSurprise()">اضغطي هنا 🎁</button>
 </div>
 
 <!-- صفحة المفاجأة -->
-<div id="surprise">
-  <div class="surprise-text">
-    💌  
-    هنا تكتب الرسالة الكبيرة  
-    اللي من قلبك  wadswasdwasdwasdwasdwdajsmdiawjiosjduiawoujdiawudjiasduwaoiusdiawusioduwaoiusdawiuoisudwaoiusdiuwaiosdhjuwahdjaouwudiawousoiudwaiouwdaiusiduwaishdwaihdausdhwaousuyduwoaysodiuwaoisudaoiusdiuwaiosdyiawusdiuawisdyuwaiusdawiysidywaoisydiasyduawdyasoihdwaudyhasohdwuaohuasdhuwaohsdoawhduoashduawohdsudhasjdhawuodhasoidhawouhsoiahduawhduasdhwuasdouwhaduahsdoaw
-    ❤️🥺
-  </div>
+<div id="surprisePage">
+  <div class="surprise-content">
 
-  <div class="surprise-image">
-    <img src="image.jpg" alt="صورة المفاجأة">
-  </div>
+    <!-- الرسالة -->
+    <div class="message-box">
+      <h2>📩 هنا تكتب الرسالة الكبيرة اللي من قلبك ❤️</h2>
+      <p class="message-text">
+        هنا تحط الرسالة الطويلة براحتك  
+        مهما كانت كبيرة هتتظبط لوحدها  
+        وتطلع شيك ومش بعرض الشاشة 💖
+      </p>
+    </div>
 
-  <audio id="music" src="song.mp3"></audio>
+    <!-- الصورة -->
+    <div class="image-box">
+      <!-- غير اسم الصورة -->
+      <img src="photo.jpg" alt="صورة المفاجأة">
+    </div>
+
+  </div>
 </div>
 
 <script>
-// كلمة السر
+/* كلمة السر */
 const correctPassword = "ice coffee";
 
 function unlock() {
@@ -175,16 +161,16 @@ function unlock() {
   }
 }
 
-// العداد
+/* العداد */
 const startDate = new Date("2024-01-01");
 const today = new Date();
 const diffDays = Math.ceil((today - startDate) / (1000*60*60*24));
 document.getElementById("days").innerText = diffDays;
 
-// فتح صفحة المفاجأة
-function showSurprise(){
-  document.getElementById("surprise").style.display = "flex";
-  document.getElementById("music").play();
+/* فتح صفحة المفاجأة */
+function openSurprise() {
+  document.getElementById("card").style.display = "none";
+  document.getElementById("surprisePage").style.display = "block";
 }
 </script>
 
