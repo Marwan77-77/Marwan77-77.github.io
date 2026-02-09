@@ -42,7 +42,6 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* زر */
 button {
   background: #ff6f91;
   color: white;
@@ -52,10 +51,6 @@ button {
   cursor: pointer;
   margin-top: 15px;
   font-size: 15px;
-}
-
-button:hover {
-  background: #ff4d6d;
 }
 
 /* صفحة المفاجأة */
@@ -86,7 +81,6 @@ button:hover {
 /* الرسالة */
 .message-box {
   flex: 1;
-  text-align: left;
 }
 
 .message-box h2 {
@@ -98,23 +92,36 @@ button:hover {
   font-size: clamp(18px, 2.5vw, 30px);
   color: #ff6f91;
   line-height: 1.8;
-  word-wrap: break-word;
   white-space: normal;
+  word-wrap: break-word;
 }
 
-/* الصورة */
-.image-box {
+/* سلايدر الصور */
+.slider {
   flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(255,111,145,0.4);
 }
 
-.image-box img {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 25px;
-  box-shadow: 0 10px 30px rgba(255,111,145,0.4);
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* قلوب خفيفة */
@@ -145,9 +152,7 @@ button:hover {
 <!-- الكارت -->
 <div class="card" id="card">
   <h2>💗 رسالة ليكي 💗</h2>
-
   <p>⏳ عدى <span id="days"></span> يوم من أول يوم شفتك فيه</p>
-
   <button onclick="openSurprise()">اضغطي هنا 🎁</button>
 </div>
 
@@ -166,15 +171,23 @@ button:hover {
         <h2>📩 رسالة من قلبي</h2>
         <p class="message-text">
           هنا تكتب الرسالة الكبيرة اللي من قلبك ❤️  
-          مهما كانت طويلة أو قصيرة  
-          هتفضل شكلها شيك ومرتبة  
+          مهما طولت أو قصرت  
+          هتفضل شكلها هادي ومرتب  
           زي إحساسك بالظبط 💕
         </p>
       </div>
 
-      <!-- الصورة -->
-      <div class="image-box">
-        <img src="photo.jpg" alt="صورة المفاجأة">
+      <!-- سلايدر الصور -->
+      <div class="slider">
+        <div class="slide active">
+          <img src="photo1.jpg">
+        </div>
+        <div class="slide">
+          <img src="photo2.jpg">
+        </div>
+        <div class="slide">
+          <img src="photo3.jpg">
+        </div>
       </div>
 
     </div>
@@ -185,10 +198,9 @@ button:hover {
 const correctPassword = "ice coffee";
 
 function unlock() {
-  const pass = document.getElementById("password").value;
-  if (pass === correctPassword) {
-    document.getElementById("lock").style.display = "none";
-    document.getElementById("card").style.display = "block";
+  if (password.value === correctPassword) {
+    lock.style.display = "none";
+    card.style.display = "block";
   } else {
     alert("كلمة السر غلط ❌");
   }
@@ -196,15 +208,23 @@ function unlock() {
 
 /* العداد */
 const startDate = new Date("2024-01-01");
-const today = new Date();
-const diffDays = Math.ceil((today - startDate) / (1000*60*60*24));
-document.getElementById("days").innerText = diffDays;
+days.innerText = Math.ceil((new Date() - startDate) / 86400000);
 
 /* فتح المفاجأة */
 function openSurprise() {
-  document.getElementById("card").style.display = "none";
-  document.getElementById("surprisePage").style.display = "block";
+  card.style.display = "none";
+  surprisePage.style.display = "block";
 }
+
+/* سلايدر الصور */
+const slides = document.querySelectorAll(".slide");
+let current = 0;
+
+setInterval(() => {
+  slides[current].classList.remove("active");
+  current = (current + 1) % slides.length;
+  slides[current].classList.add("active");
+}, 3500);
 </script>
 
 </body>
