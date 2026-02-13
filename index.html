@@ -16,51 +16,53 @@ body {
   overflow: hidden;
 }
 
-/* الهينت */
-#hintBtn {
-  position: fixed;
-  bottom: 15px;
-  left: 15px;
-  font-size: 12px;
-  color: #fff;
-  background: rgba(255,111,145,0.9);
-  padding: 6px 10px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
 /* شاشة كلمة السر */
 #lock {
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.9);
   padding: 30px;
   border-radius: 20px;
   text-align: center;
 }
 
+#lock input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+/* الهينت */
+#hintBtn {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(255, 111, 145, 0.85);
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#hintBtn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
 /* الكارت */
 .card {
   display: none;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.9);
   padding: 30px;
-  border-radius: 25px;
+  border-radius: 20px;
   width: 400px;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  position: relative;
 }
 
-/* قلوب حوالين الكارت */
-.card .heart {
-  position: absolute;
-  font-size: 22px;
-}
-
-.card .heart.tl { top: -12px; left: -12px; }
-.card .heart.tr { top: -12px; right: -12px; }
-.card .heart.bl { bottom: -12px; left: -12px; }
-.card .heart.br { bottom: -12px; right: -12px; }
-
-/* زرار */
 button {
   background: #ff6f91;
   color: white;
@@ -69,6 +71,11 @@ button {
   border-radius: 25px;
   cursor: pointer;
   margin-top: 15px;
+  font-size: 15px;
+}
+
+button:hover {
+  background: #ff4d6d;
 }
 
 /* صفحة المفاجأة */
@@ -76,67 +83,59 @@ button {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
+  background: linear-gradient(135deg, #ffe4e1, #ffb6c1);
+  padding: 40px;
+}
+
+/* المحتوى */
+.surprise-content {
   display: flex;
-  justify-content: center;
+  height: 100%;
+  gap: 40px;
   align-items: center;
 }
-
-/* كارت المفاجأة */
-.surprise-card {
-  background: rgba(255,255,255,0.45);
-  border-radius: 35px;
-  padding: 40px;
-  width: 85%;
-  height: 75%;
-  position: relative;
-  display: flex;
-  gap: 40px;
-}
-
-/* قلوب صفحة المفاجأة (زي الأولى بالظبط) */
-.surprise-card .heart {
-  position: absolute;
-  font-size: 24px;
-}
-
-.surprise-card .heart.tl { top: -15px; left: -15px; }
-.surprise-card .heart.tr { top: -15px; right: -15px; }
-.surprise-card .heart.bl { bottom: -15px; left: -15px; }
-.surprise-card .heart.br { bottom: -15px; right: -15px; }
 
 /* الرسالة */
 .message-box {
   flex: 1;
-  color: #000;
+  padding: 20px;
 }
 
 .message-box h2 {
+  color: #000;
   margin-bottom: 20px;
+  font-size: 26px;
 }
 
 .message-text {
   font-size: clamp(18px, 2.6vw, 32px);
-  line-height: 1.8;
+  color: #000;
+  line-height: 1.9;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
-/* الصور */
+/* سلايدر الصور */
 .slider {
   flex: 1;
-  border-radius: 25px;
-  overflow: hidden;
+  height: 80%;
   position: relative;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(255,111,145,0.5);
 }
 
 .slide {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 1s ease;
+  transform: scale(1.08);
+  transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
 .slide.active {
   opacity: 1;
+  transform: scale(1);
 }
 
 .slide img {
@@ -144,58 +143,76 @@ button {
   height: 100%;
   object-fit: cover;
 }
+
+/* قلوب خفيفة */
+.heart {
+  position: absolute;
+  color: rgba(255,111,145,0.4);
+  font-size: 22px;
+}
+
+.heart.one { top: 25px; left: 40px; }
+.heart.two { top: 60px; right: 60px; }
+.heart.three { bottom: 40px; left: 80px; }
+.heart.four { bottom: 60px; right: 70px; }
 </style>
 </head>
 
 <body>
 
+<!-- الهينت -->
 <div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')">
   💡 hint ya habla
 </div>
 
-<!-- كلمة السر -->
+<!-- شاشة كلمة السر -->
 <div id="lock">
   <h3>💌 كلمة السر</h3>
-  <input type="password" id="password">
+  <input type="password" id="password" placeholder="اكتبيها هنا">
   <br><br>
   <button onclick="unlock()">دخول</button>
 </div>
 
 <!-- الكارت -->
 <div class="card" id="card">
-  <span class="heart tl">❤️</span>
-  <span class="heart tr">❤️</span>
-  <span class="heart bl">❤️</span>
-  <span class="heart br">❤️</span>
-
-  <h2>💖 رسالة ليكي</h2>
+  <h2>💗 رسالة ليكي 💗</h2>
   <p>⏳ عدى <span id="days"></span> يوم من أول يوم شفتك فيه</p>
   <button onclick="openSurprise()">اضغطي هنا 🎁</button>
 </div>
 
 <!-- صفحة المفاجأة -->
 <div id="surprisePage">
-  <div class="surprise-card">
 
-    <span class="heart tl">❤️</span>
-    <span class="heart tr">❤️</span>
-    <span class="heart bl">❤️</span>
-    <span class="heart br">❤️</span>
+  <div class="heart one">❤️</div>
+  <div class="heart two">❤️</div>
+  <div class="heart three">❤️</div>
+  <div class="heart four">❤️</div>
 
+  <div class="surprise-content">
+
+    <!-- الرسالة -->
     <div class="message-box">
       <h2>📩 رسالة من قلبي</h2>
       <p class="message-text">
-        هنا تكتب الرسالة الكبيرة ❤️  
+        هنا تكتب الرسالة الكبيرة اللي من قلبك ❤️  
         الكلام هيترتب تحت بعضه  
-        والخط بيكبر ويصغر تلقائي  
-        وعلى نفس الستايل الرومانسي
+        والخط هيكبر أو يصغر تلقائي  
+        ويطلع نضيف وهادي  
+        على البينك زي ما انت حابب 💕
       </p>
     </div>
 
+    <!-- الصور -->
     <div class="slider">
-      <div class="slide active"><img src="photo1.jpg"></div>
-      <div class="slide"><img src="photo2.jpg"></div>
-      <div class="slide"><img src="photo3.jpg"></div>
+      <div class="slide active">
+        <img src="photo1.jpg">
+      </div>
+      <div class="slide">
+        <img src="photo2.jpg">
+      </div>
+      <div class="slide">
+        <img src="photo3.jpg">
+      </div>
     </div>
 
   </div>
@@ -208,22 +225,29 @@ function unlock() {
   if (password.value === correctPassword) {
     lock.style.display = "none";
     card.style.display = "block";
+  } else {
+    alert("كلمة السر غلط ❌");
   }
 }
 
-days.innerText = Math.ceil((new Date() - new Date("2024-01-01")) / 86400000);
+/* العداد */
+const startDate = new Date("2024-01-01");
+days.innerText = Math.ceil((new Date() - startDate) / 86400000);
 
+/* فتح المفاجأة */
 function openSurprise() {
   card.style.display = "none";
-  surprisePage.style.display = "flex";
+  surprisePage.style.display = "block";
 }
 
+/* سلايدر الصور */
 const slides = document.querySelectorAll(".slide");
-let i = 0;
+let current = 0;
+
 setInterval(() => {
-  slides[i].classList.remove("active");
-  i = (i + 1) % slides.length;
-  slides[i].classList.add("active");
+  slides[current].classList.remove("active");
+  current = (current + 1) % slides.length;
+  slides[current].classList.add("active");
 }, 3500);
 </script>
 
