@@ -44,12 +44,6 @@ body {
   cursor: pointer;
   user-select: none;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-#hintBtn:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
 }
 
 /* الكارت */
@@ -71,11 +65,6 @@ button {
   border-radius: 25px;
   cursor: pointer;
   margin-top: 15px;
-  font-size: 15px;
-}
-
-button:hover {
-  background: #ff4d6d;
 }
 
 /* صفحة المفاجأة */
@@ -95,7 +84,7 @@ button:hover {
   align-items: center;
 }
 
-/* الرسالة */
+/* الرسالة (على الشمال) */
 .message-box {
   flex: 1;
   padding: 20px;
@@ -111,11 +100,9 @@ button:hover {
   font-size: clamp(18px, 2.6vw, 32px);
   color: #000;
   line-height: 1.9;
-  white-space: normal;
-  word-wrap: break-word;
 }
 
-/* سلايدر الصور */
+/* سلايدر الصور (على اليمين) */
 .slider {
   flex: 1;
   height: 80%;
@@ -144,7 +131,7 @@ button:hover {
   object-fit: cover;
 }
 
-/* قلوب خفيفة */
+/* قلوب */
 .heart {
   position: absolute;
   color: rgba(255,111,145,0.4);
@@ -160,12 +147,11 @@ button:hover {
 
 <body>
 
-<!-- الهينت -->
 <div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')">
   💡 hint ya habla
 </div>
 
-<!-- شاشة كلمة السر -->
+<!-- كلمة السر -->
 <div id="lock">
   <h3>💌 كلمة السر</h3>
   <input type="password" id="password" placeholder="اكتبيها هنا">
@@ -190,19 +176,19 @@ button:hover {
 
   <div class="surprise-content">
 
-    <!-- الرسالة -->
+    <!-- الرسالة (شمال) -->
     <div class="message-box">
       <h2>📩 رسالة من قلبي</h2>
       <p class="message-text">
-        هنا تكتب الرسالة الكبيرة اللي من قلبك ❤️  
-        الكلام هيترتب تحت بعضه  
-        والخط هيكبر أو يصغر تلقائي  
-        ويطلع نضيف وهادي  
-        على البينك زي ما انت حابب 💕
+        هنا تكتب رسالتك ❤️  
+        الخط بيتظبط لوحده  
+        والكلام تحت بعضه  
+        وناعم على البينك  
+        زي ما اتفقنا 💕
       </p>
     </div>
 
-    <!-- الصور -->
+    <!-- الصور (يمين) -->
     <div class="slider">
       <div class="slide active">
         <img src="photo1.jpg">
@@ -230,17 +216,14 @@ function unlock() {
   }
 }
 
-/* العداد */
 const startDate = new Date("2024-01-01");
 days.innerText = Math.ceil((new Date() - startDate) / 86400000);
 
-/* فتح المفاجأة */
 function openSurprise() {
   card.style.display = "none";
   surprisePage.style.display = "block";
 }
 
-/* سلايدر الصور */
 const slides = document.querySelectorAll(".slide");
 let current = 0;
 
