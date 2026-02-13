@@ -10,7 +10,6 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
-
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -23,9 +22,11 @@ body {
   text-align: center;
 
   min-height: 100vh;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 #lock input {
@@ -60,7 +61,6 @@ body {
   width: 400px;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-
   margin: 40px auto;
 }
 
@@ -96,7 +96,6 @@ button {
 /* الرسالة */
 .message-box {
   flex: 1;
-  max-height: none;
   padding: 10px 15px;
   display: flex;
   flex-direction: column;
@@ -271,7 +270,6 @@ function unlock() {
 const startDate = new Date("2025-11-6");
 days.innerText = Math.ceil((new Date() - startDate) / 86400000);
 
-/* فتح صفحة المفاجأة */
 function openSurprise() {
   card.style.display = "none";
   surprisePage.style.display = "block";
