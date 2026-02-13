@@ -11,8 +11,8 @@ body {
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
   overflow-x: hidden;
-  min-height: 100vh;
 }
+
 
 /* شاشة كلمة السر */
 #lock {
@@ -21,13 +21,12 @@ body {
   border-radius: 20px;
   text-align: center;
 
-  min-height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
 
 #lock input {
   padding: 10px;
@@ -61,8 +60,13 @@ body {
   width: 400px;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  margin: 40px auto;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
 
 button {
   background: #ff6f91;
