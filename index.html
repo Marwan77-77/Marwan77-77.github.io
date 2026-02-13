@@ -160,6 +160,11 @@ button:hover {
 
 <body>
 
+<!-- 🎵 الصوت -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <!-- الهينت -->
 <div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')">
   💡 hint ya habla
@@ -190,65 +195,46 @@ button:hover {
 
   <div class="surprise-content">
 
-    <!-- الرسالة -->
     <div class="message-box">
       <h2>📩 رسالة من قلبي</h2>
       <p class="message-text">
         هنا تكتب الرسالة الكبيرة اللي من قلبك ❤️  
         الكلام هيترتب تحت بعضه  
         والخط هيكبر أو يصغر تلقائي  
-        ويطلع نضيف وهادي  
+        ويطلع نظيف وهادي  
         على البينك زي ما انت حابب 💕
       </p>
     </div>
 
-    <!-- الصور -->
     <div class="slider">
-      <div class="slide active">
-        <img src="photo1.png">
-      </div>
-      <div class="slide">
-        <img src="photo2.png">
-      </div>
-      <div class="slide">
-        <img src="photo3.png">
-      </div>
-       <div class="slide">
-        <img src="photo4.png">
-      </div>
-       <div class="slide">
-        <img src="photo5.png">
-      </div>
-       <div class="slide">
-        <img src="photo6.png">
-      </div>
-       <div class="slide">
-        <img src="photo7.png">
-      </div>
-       <div class="slide">
-        <img src="photo8.png">
-      </div>
-       <div class="slide">
-        <img src="photo9.png">
-      </div>
-       <div class="slide">
-        <img src="photoA.png">
-      </div>
-      <div class="slide">
-        <img src="photoB.png">
-      </div>
+      <div class="slide active"><img src="photo1.png"></div>
+      <div class="slide"><img src="photo2.png"></div>
+      <div class="slide"><img src="photo3.png"></div>
+      <div class="slide"><img src="photo4.png"></div>
+      <div class="slide"><img src="photo5.png"></div>
+      <div class="slide"><img src="photo6.png"></div>
+      <div class="slide"><img src="photo7.png"></div>
+      <div class="slide"><img src="photo8.png"></div>
+      <div class="slide"><img src="photo9.png"></div>
+      <div class="slide"><img src="photoA.png"></div>
+      <div class="slide"><img src="photoB.png"></div>
     </div>
 
   </div>
 </div>
 
 <script>
+
 const correctPassword = "ice coffee";
 
 function unlock() {
   if (password.value === correctPassword) {
     lock.style.display = "none";
     card.style.display = "block";
+
+    // 🎵 تشغيل الموسيقى بعد كلمة السر
+    document.getElementById("bgMusic").play();
+
   } else {
     alert("كلمة السر غلط ❌");
   }
@@ -273,6 +259,7 @@ setInterval(() => {
   current = (current + 1) % slides.length;
   slides[current].classList.add("active");
 }, 3500);
+
 </script>
 
 </body>
