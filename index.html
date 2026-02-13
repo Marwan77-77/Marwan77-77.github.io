@@ -35,7 +35,7 @@ body {
 #hintBtn {
   position: fixed;
   bottom: 15px;
-  right: 15px;
+  left: 15px;
   font-size: 12px;
   color: #fff;
   background: rgba(255, 111, 145, 0.85);
@@ -43,13 +43,6 @@ body {
   border-radius: 10px;
   cursor: pointer;
   user-select: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-#hintBtn:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
 }
 
 /* الكارت */
@@ -71,11 +64,6 @@ button {
   border-radius: 25px;
   cursor: pointer;
   margin-top: 15px;
-  font-size: 15px;
-}
-
-button:hover {
-  background: #ff4d6d;
 }
 
 /* صفحة المفاجأة */
@@ -85,20 +73,36 @@ button:hover {
   inset: 0;
   background: linear-gradient(135deg, #ffe4e1, #ffb6c1);
   padding: 40px;
+  overflow: hidden;
 }
 
-/* المحتوى */
+/* قلوب متحركة */
+.floating-heart {
+  position: absolute;
+  font-size: 22px;
+  opacity: 0.5;
+  animation: float 6s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+/* توزيع المحتوى */
 .surprise-content {
   display: flex;
   height: 100%;
   gap: 40px;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
-/* الرسالة */
+/* الرسالة (شمال) */
 .message-box {
   flex: 1;
-  padding: 20px;
 }
 
 .message-box h2 {
@@ -111,11 +115,9 @@ button:hover {
   font-size: clamp(18px, 2.6vw, 32px);
   color: #000;
   line-height: 1.9;
-  white-space: normal;
-  word-wrap: break-word;
 }
 
-/* سلايدر الصور */
+/* الصور (يمين) */
 .slider {
   flex: 1;
   height: 80%;
@@ -143,29 +145,16 @@ button:hover {
   height: 100%;
   object-fit: cover;
 }
-
-/* قلوب خفيفة */
-.heart {
-  position: absolute;
-  color: rgba(255,111,145,0.4);
-  font-size: 22px;
-}
-
-.heart.one { top: 75px; left: 60px; }
-.heart.two { top: 75px; right: 60px; }
-.heart.three { bottom: 75px; left: 60px; }
-.heart.four { bottom: 75px; right: 60px; }
 </style>
 </head>
 
 <body>
 
-<!-- الهينت -->
 <div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')">
   💡 hint ya habla
 </div>
 
-<!-- شاشة كلمة السر -->
+<!-- كلمة السر -->
 <div id="lock">
   <h3>💌 كلمة السر</h3>
   <input type="password" id="password" placeholder="اكتبيها هنا">
@@ -183,10 +172,13 @@ button:hover {
 <!-- صفحة المفاجأة -->
 <div id="surprisePage">
 
-  <div class="heart one">❤️</div>
-  <div class="heart two">❤️</div>
-  <div class="heart three">❤️</div>
-  <div class="heart four">❤️</div>
+  <!-- القلوب -->
+  <div class="floating-heart" style="top:20px; left:30px;">❤️</div>
+  <div class="floating-heart" style="top:80px; right:60px;">❤️</div>
+  <div class="floating-heart" style="bottom:50px; left:100px;">❤️</div>
+  <div class="floating-heart" style="bottom:80px; right:120px;">❤️</div>
+  <div class="floating-heart" style="top:40%; left:10px;">❤️</div>
+  <div class="floating-heart" style="top:60%; right:20px;">❤️</div>
 
   <div class="surprise-content">
 
@@ -194,11 +186,11 @@ button:hover {
     <div class="message-box">
       <h2>📩 رسالة من قلبي</h2>
       <p class="message-text">
-        هنا تكتب الرسالة الكبيرة اللي من قلبك ❤️  
-        الكلام هيترتب تحت بعضه  
-        والخط هيكبر أو يصغر تلقائي  
-        ويطلع نضيف وهادي  
-        على البينك زي ما انت حابب 💕
+        هنا تكتب رسالتك 💕  
+        الكلام هيبقى متظبط  
+        والخط بيكبر ويصغر لوحده  
+        وعلى البينك الرومانسي  
+        زي ما كنت عايز بالظبط ❤️
       </p>
     </div>
 
@@ -230,17 +222,14 @@ function unlock() {
   }
 }
 
-/* العداد */
 const startDate = new Date("2024-01-01");
 days.innerText = Math.ceil((new Date() - startDate) / 86400000);
 
-/* فتح المفاجأة */
 function openSurprise() {
   card.style.display = "none";
   surprisePage.style.display = "block";
 }
 
-/* سلايدر الصور */
 const slides = document.querySelectorAll(".slide");
 let current = 0;
 
