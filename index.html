@@ -106,4 +106,126 @@ button {
 .surprise-card .heart.br { bottom: -15px; right: -15px; }
 
 /* الرسالة */
-.message-bo
+.message-box {
+  flex: 1;
+  color: #000;
+}
+
+.message-box h2 {
+  margin-bottom: 20px;
+}
+
+.message-text {
+  font-size: clamp(18px, 2.6vw, 32px);
+  line-height: 1.8;
+}
+
+/* الصور */
+.slider {
+  flex: 1;
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
+</head>
+
+<body>
+
+<div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')">
+  💡 hint ya habla
+</div>
+
+<!-- كلمة السر -->
+<div id="lock">
+  <h3>💌 كلمة السر</h3>
+  <input type="password" id="password">
+  <br><br>
+  <button onclick="unlock()">دخول</button>
+</div>
+
+<!-- الكارت -->
+<div class="card" id="card">
+  <span class="heart tl">❤️</span>
+  <span class="heart tr">❤️</span>
+  <span class="heart bl">❤️</span>
+  <span class="heart br">❤️</span>
+
+  <h2>💖 رسالة ليكي</h2>
+  <p>⏳ عدى <span id="days"></span> يوم من أول يوم شفتك فيه</p>
+  <button onclick="openSurprise()">اضغطي هنا 🎁</button>
+</div>
+
+<!-- صفحة المفاجأة -->
+<div id="surprisePage">
+  <div class="surprise-card">
+
+    <span class="heart tl">❤️</span>
+    <span class="heart tr">❤️</span>
+    <span class="heart bl">❤️</span>
+    <span class="heart br">❤️</span>
+
+    <div class="message-box">
+      <h2>📩 رسالة من قلبي</h2>
+      <p class="message-text">
+        هنا تكتب الرسالة الكبيرة ❤️  
+        الكلام هيترتب تحت بعضه  
+        والخط بيكبر ويصغر تلقائي  
+        وعلى نفس الستايل الرومانسي
+      </p>
+    </div>
+
+    <div class="slider">
+      <div class="slide active"><img src="photo1.jpg"></div>
+      <div class="slide"><img src="photo2.jpg"></div>
+      <div class="slide"><img src="photo3.jpg"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const correctPassword = "ice coffee";
+
+function unlock() {
+  if (password.value === correctPassword) {
+    lock.style.display = "none";
+    card.style.display = "block";
+  }
+}
+
+days.innerText = Math.ceil((new Date() - new Date("2024-01-01")) / 86400000);
+
+function openSurprise() {
+  card.style.display = "none";
+  surprisePage.style.display = "flex";
+}
+
+const slides = document.querySelectorAll(".slide");
+let i = 0;
+setInterval(() => {
+  slides[i].classList.remove("active");
+  i = (i + 1) % slides.length;
+  slides[i].classList.add("active");
+}, 3500);
+</script>
+
+</body>
+</html>
