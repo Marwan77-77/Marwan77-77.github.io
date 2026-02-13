@@ -16,16 +16,15 @@ body {
 
 /* شاشة كلمة السر */
 #lock {
-  background: rgba(255,255,255,0.9);
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  background: transparent; /* 🔥 مهم */
+  text-align: center;
 }
+
 
 
 #lock input {
@@ -171,6 +170,13 @@ button {
 .heart.three { bottom: 75px; left: 60px; }
 .heart.four { bottom: 75px; right: 60px; }
 
+.lock-card {
+  background: rgba(255,255,255,0.9);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+  
 /* موبايل */
 @media (max-width: 768px) {
 
@@ -215,11 +221,15 @@ button {
   <button onclick="unlock()">دوسي الله يخربيتك</button>
 </div>
 
-<div class="card" id="card">
-  <h2>شطورة شطورة , بحبك يهبلة والله</h2>
-  <p> عدى <span id="days"></span> يوم على اخر يوم اتكلمنا فيه </p>
-  <button onclick="openSurprise()">Gu bxo 🎁</button>
+<div id="lock">
+  <div class="lock-card">
+    <h3>اكتبي الي كنت دايما بتشل بسببه ، مش الريدبول لا</h3>
+    <input type="password" id="password" placeholder="كلمة السر يمجنونة">
+    <br><br>
+    <button onclick="unlock()">دوسي الله يخربيتك</button>
+  </div>
 </div>
+
 
 <div id="surprisePage">
 
