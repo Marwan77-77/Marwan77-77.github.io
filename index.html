@@ -16,7 +16,7 @@ body {
 
   overflow-x: hidden;
   overflow-y: auto;
-  height: auto; /* بدل 100vh */
+  min-height: 100vh; /* بدل height: 100vh */
 }
 
 /* شاشة كلمة السر */
@@ -73,8 +73,7 @@ button {
 /* صفحة المفاجأة */
 #surprisePage {
   display: none;
-  position: absolute; /* 🔥 خلي absolute */
-  top: 0; left: 0; right: 0; bottom: 0;
+  position: relative; /* 🔹 خلي relative عشان السكرول يشتغل */
   background: linear-gradient(135deg, #ffe4e1, #ffb6c1);
   padding: 30px;
 
@@ -93,7 +92,8 @@ button {
 /* الرسالة */
 .message-box {
   flex: 1;
-  max-height: 80vh; /* 🔥 خليها تمسك ارتفاع الشاشة */
+  max-height: 80vh; /* 🔹 بدل height */
+  min-height: 200px; /* 🔹 عشان ما يصغرش جدًا */
   padding: 10px 15px;
   display: flex;
   flex-direction: column;
@@ -124,7 +124,8 @@ button {
 /* السلايدر */
 .slider {
   flex: 1;
-  max-height: 80vh; /* 🔥 خلي السلايدر ما يتجاوز الشاشة */
+  max-height: 80vh; /* 🔹 بدل height */
+  min-height: 200px; /* 🔹 عشان ما يختفيش */
   position: relative;
   border-radius: 30px;
   overflow: hidden;
@@ -171,7 +172,7 @@ button {
   }
 
   #surprisePage {
-    position: absolute;
+    position: relative;
     min-height: 100vh;
   }
 
