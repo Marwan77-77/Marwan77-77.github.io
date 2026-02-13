@@ -31,6 +31,27 @@ body {
   margin-top: 10px;
 }
 
+/* الهينت */
+#hintBtn {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(255, 111, 145, 0.85);
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#hintBtn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
 /* الكارت */
 .card {
   display: none;
@@ -51,6 +72,10 @@ button {
   cursor: pointer;
   margin-top: 15px;
   font-size: 15px;
+}
+
+button:hover {
+  background: #ff4d6d;
 }
 
 /* صفحة المفاجأة */
@@ -134,6 +159,11 @@ button {
 </head>
 
 <body>
+
+<!-- الهينت -->
+<div id="hintBtn" onclick="alert('💡 تلميح: كلمة السر حاجة بينا بس 😉')">
+  💡 hint ya habla
+</div>
 
 <!-- شاشة كلمة السر -->
 <div id="lock">
