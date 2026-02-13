@@ -10,13 +10,9 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   overflow-x: hidden;
-  overflow-y: auto;
-  min-height: 100vh; /* بدل height: 100vh */
+  min-height: 100vh;
 }
 
 /* شاشة كلمة السر */
@@ -25,6 +21,11 @@ body {
   padding: 30px;
   border-radius: 20px;
   text-align: center;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #lock input {
@@ -47,6 +48,7 @@ body {
   cursor: pointer;
   user-select: none;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 10;
 }
 
 /* الكارت */
@@ -58,6 +60,8 @@ body {
   width: 400px;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+  margin: 40px auto;
 }
 
 button {
@@ -73,10 +77,10 @@ button {
 /* صفحة المفاجأة */
 #surprisePage {
   display: none;
-  position: relative; /* 🔹 خلي relative عشان السكرول يشتغل */
   background: linear-gradient(135deg, #ffe4e1, #ffb6c1);
   padding: 30px;
 
+  min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -85,15 +89,14 @@ button {
 .surprise-content {
   display: flex;
   gap: 30px;
-  align-items: stretch;
+  align-items: flex-start;
   flex-wrap: wrap;
 }
 
 /* الرسالة */
 .message-box {
   flex: 1;
-  max-height: 80vh; /* 🔹 بدل height */
-  min-height: 200px; /* 🔹 عشان ما يصغرش جدًا */
+  max-height: none;
   padding: 10px 15px;
   display: flex;
   flex-direction: column;
@@ -112,7 +115,6 @@ button {
   line-height: 1.55;
   font-size: clamp(11.5px, 1.45vw, 22px);
 
-  overflow: hidden;
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -124,8 +126,10 @@ button {
 /* السلايدر */
 .slider {
   flex: 1;
-  max-height: 80vh; /* 🔹 بدل height */
-  min-height: 200px; /* 🔹 عشان ما يختفيش */
+  height: 80vh;
+  max-height: 600px;
+  min-height: 260px;
+
   position: relative;
   border-radius: 30px;
   overflow: hidden;
@@ -148,7 +152,8 @@ button {
 .slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #000;
 }
 
 /* القلوب */
@@ -167,18 +172,15 @@ button {
 @media (max-width: 768px) {
 
   body {
-    display: block;
     height: auto;
   }
 
   #surprisePage {
-    position: relative;
     min-height: 100vh;
   }
 
   .surprise-content {
     flex-direction: column;
-    height: auto;
   }
 
   .slider {
@@ -228,7 +230,6 @@ button {
     <div class="message-box">
       <h2>
         سيبك من الي فات دا كله الاهم دلوقتي  
-        
         Would you be my valentine as we used to ma pretty daisy?
       </h2>
 
@@ -270,45 +271,13 @@ function unlock() {
 const startDate = new Date("2025-11-6");
 days.innerText = Math.ceil((new Date() - startDate) / 86400000);
 
-/* ========================= */
-/* 🔥 الحل النهائي للنص */
-/* ========================= */
-function fitTextPerfectly() {
-  const text = document.querySelector(".message-text");
-  const box = document.querySelector(".message-box");
-
-  if (!text || !box) return;
-
-  let fontSize = parseFloat(window.getComputedStyle(text).fontSize);
-  const minSize = 11; // أصغر حجم مسموح
-
-  text.style.overflow = "hidden";
-
-  while (text.scrollHeight > box.clientHeight && fontSize > minSize) {
-    fontSize -= 0.4;
-    text.style.fontSize = fontSize + "px";
-  }
-}
-
 /* فتح صفحة المفاجأة */
 function openSurprise() {
   card.style.display = "none";
   surprisePage.style.display = "block";
-
-  // ندي وقت للـ layout يترسم
-  setTimeout(() => {
-    fitTextPerfectly();
-  }, 120);
 }
 
-/* لو الشاشة اتغير حجمها (موبايل rotate مثلاً) */
-window.addEventListener("resize", () => {
-  setTimeout(fitTextPerfectly, 100);
-});
-
-/* ========================= */
 /* السلايدر */
-/* ========================= */
 const slides = document.querySelectorAll(".slide");
 let current = 0;
 
